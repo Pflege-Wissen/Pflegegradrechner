@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pflegegrad-Selbstcheck – Erwachsene</title>
+<style>
+:root{
+  --bg:#f1f1f5;
+  --card:#ffffff;
+  --text:#111111;
+  --muted:#666a73;
+  --line:#d9dbe2;
+  --blue:#367ab5;
+  --blue-dark:#286796;
+  --blue-soft:#eaf3fb;
+  --warn:#fff6dc;
+  --warn-border:#e7cf88;
+  --shadow:0 10px 34px rgba(26,42,57,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.wrap{width:min(860px,calc(100% - 28px));margin:24px auto 70px}
+.brand{text-align:center;margin:12px 0 28px}
+.brand-title{
+  font-family:Georgia,"Times New Roman",serif;
+  color:var(--blue);
+  font-size:clamp(27px,5vw,42px);
+  line-height:1.07;
+}
+.brand-sub{margin-top:7px;color:var(--muted);font-size:14px}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+.hidden{display:none!important}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--blue);margin:0 0 8px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
+h2{font-size:clamp(25px,4vw,34px);line-height:1.2;margin:0 0 10px}
+h3{font-size:21px;margin:0 0 8px}
+.lead{font-size:17px;line-height:1.6;color:#3e4148}
+.small{font-size:13px;line-height:1.5;color:var(--muted)}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+.badge{background:var(--blue-soft);color:var(--blue-dark);font-size:13px;font-weight:700;padding:8px 11px;border-radius:999px}
+button{font:inherit;cursor:pointer;border:0}
+.primary{background:var(--blue);color:white;border-radius:7px;padding:15px 20px;font-weight:750;font-size:16px}
+.primary:hover{background:var(--blue-dark)}
+.secondary{background:#eceef2;color:#222;border-radius:7px;padding:14px 18px;font-weight:700}
+.start-btn{width:100%;font-family:Georgia,"Times New Roman",serif;font-size:21px}
+.top{position:sticky;top:0;z-index:3;background:rgba(241,241,245,.94);backdrop-filter:blur(8px);padding:9px 0 12px}
+.topline{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:13px;margin-bottom:7px}
+.progress{height:7px;background:#dde1e7;border-radius:99px;overflow:hidden}
+.progress>div{height:100%;background:var(--blue);width:0;transition:width .2s}
+.qcard{margin-top:12px}
+.module-desc{background:var(--blue-soft);border-radius:12px;padding:14px 16px;color:#294b64;font-size:14px;line-height:1.5;margin:16px 0 24px}
+.question{padding:5px 0}
+.question-title{font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1.2;margin:4px 0 8px}
+.question-sub{font-size:15px;color:var(--muted);line-height:1.5}
+.options{display:grid;gap:10px;margin:22px 0}
+.option{
+  display:flex;gap:12px;align-items:flex-start;padding:15px;
+  border:1.5px solid var(--line);border-radius:11px;background:#fff;cursor:pointer
+}
+.option.selected{border-color:var(--blue);background:var(--blue-soft)}
+.radio{width:20px;height:20px;border:2px solid #9aa0aa;border-radius:50%;flex:0 0 auto;margin-top:1px}
+.option.selected .radio{border:6px solid var(--blue)}
+.option strong{display:block;margin-bottom:3px}
+.option span{font-size:13px;color:var(--muted);line-height:1.4}
+.helpbtn{background:transparent;color:var(--blue-dark);font-weight:750;padding:4px 0}
+.helpbox{margin-top:10px;border-left:4px solid var(--blue);background:#f7f9fb;padding:14px 16px;border-radius:8px;font-size:14px;line-height:1.55;color:#414650}
+.actions{display:flex;justify-content:space-between;gap:10px;margin-top:25px}.actions .primary{margin-left:auto}
+.section-title{font-family:Georgia,"Times New Roman",serif;font-size:22px;margin:10px 0 6px}
+.freq-grid{display:grid;grid-template-columns:1fr repeat(3,minmax(70px,90px));gap:8px;align-items:center;margin:15px 0}
+.freq-grid .head{font-size:12px;color:var(--muted);font-weight:700;text-align:center}
+.freq-name{font-size:14px;line-height:1.3}
+input[type=number]{width:100%;padding:10px 7px;border:1px solid var(--line);border-radius:7px;font:inherit;text-align:center;background:white}
+.checkrow{display:flex;gap:10px;align-items:flex-start;padding:13px;border:1px solid var(--line);border-radius:10px;margin:10px 0}
+.checkrow input{margin-top:3px;transform:scale(1.15)}
+.notice{background:var(--warn);border:1px solid var(--warn-border);border-radius:10px;padding:14px 15px;font-size:14px;line-height:1.5;margin-top:20px}
+.result-hero{text-align:center;padding:9px 0 20px}
+.pg{font-family:Georgia,"Times New Roman",serif;color:var(--blue);font-size:clamp(43px,9vw,72px);line-height:1;margin:8px 0}
+.points{font-size:21px;font-weight:750}
+.result-grid{display:grid;gap:12px;margin:22px 0}
+.resrow{border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+.reshead{display:flex;justify-content:space-between;gap:12px;font-size:14px;margin-bottom:7px}
+.track{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--blue)}
+details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:750}
+.footer-note{text-align:center;color:var(--muted);font-size:12px;line-height:1.5;margin-top:22px}
+@media(max-width:600px){
+ .card{padding:20px 17px;border-radius:16px}
+ .wrap{margin-top:12px}
+ .freq-grid{grid-template-columns:1fr repeat(3,58px);gap:5px}
+ .freq-grid input{padding:9px 2px}
+ .question-title{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="brand-title">Manuel Höpken<br>Pflegesachverständiger</div>
+    <div class="brand-sub">Pflegegrad-Selbstcheck für Erwachsene</div>
+  </div>
+
+  <section class="card" id="intro">
+    <p class="eyebrow">UNVERBINDLICHE ORIENTIERUNG</p>
+    <h1>Pflegegrad Schritt für Schritt selbst einschätzen</h1>
+    <p class="lead">Der Selbstcheck führt durch die sechs Bereiche des Begutachtungsinstruments und berechnet anschließend eine unverbindliche Orientierung zum möglichen Pflegegrad.</p>
+    <div class="badges">
+      <span class="badge">Erwachsene</span>
+      <span class="badge">Berechnung im Browser</span>
+      <span class="badge">keine Datenspeicherung</span>
+      <span class="badge">BRi 21.08.2024</span>
+    </div>
+    <div class="notice"><strong>Hinweis:</strong> Der Rechner ersetzt keine Pflegebegutachtung. Entscheidend ist nicht eine Diagnose allein, sondern wie stark die Selbständigkeit oder Fähigkeiten gesundheitlich bedingt beeinträchtigt sind und ob dies voraussichtlich mindestens sechs Monate besteht.</div>
+    <br>
+    <button class="primary start-btn" onclick="startApp()">Selbstcheck starten</button>
+  </section>
+
+  <div id="app" class="hidden">
+    <div class="top">
+      <div class="topline"><span id="moduleLabel"></span><span id="countLabel"></span></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <section class="card qcard" id="questionCard"></section>
+  </div>
+
+  <section class="card hidden" id="result"></section>
+  <div class="footer-note">Prototyp · fachliche Grundlage: Begutachtungs-Richtlinien des Medizinischen Dienstes Bund, Fassung 21.08.2024.</div>
+</div>
+
+<script>
+const simpleOpts=[
+  {label:"Selbständig",desc:"Ohne personelle Hilfe möglich.",v:0},
+  {label:"Überwiegend selbständig",desc:"Nur geringe oder punktuelle personelle Hilfe erforderlich.",v:1},
+  {label:"Überwiegend unselbständig",desc:"Nur geringe Anteile gelingen selbst; umfangreiche Hilfe ist erforderlich.",v:2},
+  {label:"Unselbständig",desc:"Die Aktivität gelingt nicht oder nur minimal ohne Übernahme.",v:3}
+];
+const cogOpts=[
+  {label:"Fähigkeit vorhanden / unbeeinträchtigt",desc:"Nahezu vollständig vorhanden.",v:0},
+  {label:"Fähigkeit größtenteils vorhanden",desc:"Überwiegend vorhanden, aber nicht durchgängig.",v:1},
+  {label:"Fähigkeit in geringem Maße vorhanden",desc:"Stark beeinträchtigt, Ressourcen sind noch erkennbar.",v:2},
+  {label:"Fähigkeit nicht vorhanden",desc:"Nicht oder nur in sehr geringem Maße vorhanden.",v:3}
+];
+const behOpts=[
+  {label:"Nie oder sehr selten",desc:"Kein relevanter oder nur sehr seltener Unterstützungsbedarf.",v:0},
+  {label:"Selten",desc:"Ein- bis dreimal innerhalb von zwei Wochen.",v:1},
+  {label:"Häufig",desc:"Zweimal bis mehrmals wöchentlich, aber nicht täglich.",v:3},
+  {label:"Täglich",desc:"Täglicher personeller Unterstützungsbedarf.",v:5}
+];
+
+const modules=[
+ {id:1,name:"Mobilität",desc:"Hier geht es ausschließlich um motorische Aspekte: Körperhaltung einnehmen oder wechseln und Fortbewegung ohne personelle Unterstützung.",weight:10,opts:simpleOpts,qs:[
+  ["Positionswechsel im Bett","Kann die Person verschiedene Positionen im Bett einnehmen, sich drehen und aus dem Liegen aufrichten?"],
+  ["Halten einer stabilen Sitzposition","Kann die Person eine stabile Sitzposition halten?"],
+  ["Umsetzen","Kann die Person von einer erhöhten Sitzfläche aufstehen und sich auf eine andere Sitzgelegenheit umsetzen?"],
+  ["Fortbewegen innerhalb des Wohnbereichs","Kann sich die Person innerhalb des Wohnbereichs sicher fortbewegen?"],
+  ["Treppensteigen","Kann die Person Treppen zwischen zwei Etagen überwinden?"]
+ ]},
+ {id:2,name:"Kognitive und kommunikative Fähigkeiten",desc:"Bewertet werden geistige Funktionen und Kommunikation. Bei den ersten acht Kriterien geht es um Denkprozesse, nicht um die motorische Umsetzung.",weight:15,opts:cogOpts,qs:[
+  ["Erkennen von Personen aus dem näheren Umfeld","Werden vertraute Personen aus dem regelmäßigen Umfeld erkannt?"],
+  ["Örtliche Orientierung","Findet sich die Person in ihrer räumlichen Umgebung zurecht?"],
+  ["Zeitliche Orientierung","Kann die Person zeitliche Zusammenhänge und Tageszeiten einordnen?"],
+  ["Erinnern an wesentliche Ereignisse oder Beobachtungen","Kann sich die Person an wichtige kürzlich oder länger zurückliegende Ereignisse erinnern?"],
+  ["Steuern von mehrschrittigen Alltagshandlungen","Kann die Person Handlungen mit mehreren Schritten sinnvoll planen und ausführen?"],
+  ["Treffen von Entscheidungen im Alltagsleben","Kann die Person angemessene Entscheidungen im Alltag treffen?"],
+  ["Verstehen von Sachverhalten und Informationen","Kann sie Informationen und Zusammenhänge verstehen?"],
+  ["Erkennen von Risiken und Gefahren","Werden Gefahren im Alltag erkannt und angemessen berücksichtigt?"],
+  ["Mitteilen von elementaren Bedürfnissen","Kann die Person grundlegende Bedürfnisse mitteilen?"],
+  ["Verstehen von Aufforderungen","Kann die Person Aufforderungen verstehen?"],
+  ["Beteiligen an einem Gespräch","Kann sie Gesprächsinhalte aufnehmen, passend antworten und sich beteiligen?"]
+ ]},
+ {id:3,name:"Verhaltensweisen und psychische Problemlagen",desc:"Hier zählt, wie häufig ein Verhalten tatsächlich personelle Unterstützung erforderlich macht. Gleichzeitige Verhaltensweisen mit demselben Hilfebedarf sollen nicht doppelt gezählt werden.",weight:15,opts:behOpts,qs:[
+  ["Motorisch geprägte Verhaltensauffälligkeiten","Zum Beispiel zielloses Umhergehen, Weglauftendenz oder ausgeprägte Rastlosigkeit."],
+  ["Nächtliche Unruhe","Nächtliches Umherirren oder Unruhe mit notwendiger personeller Unterstützung."],
+  ["Selbstschädigendes und autoaggressives Verhalten","Verhalten, bei dem sich die Person selbst verletzt oder gefährdet."],
+  ["Beschädigen von Gegenständen","Aggressive, gegen Gegenstände gerichtete Handlungen."],
+  ["Physisch aggressives Verhalten gegenüber anderen Personen","Zum Beispiel Schlagen, Treten, Stoßen oder Verletzungsversuche."],
+  ["Verbale Aggression","Zum Beispiel Beschimpfungen oder Bedrohungen."],
+  ["Andere pflegerelevante vokale Auffälligkeiten","Zum Beispiel häufiges Rufen, Schreien oder ständiges Wiederholen."],
+  ["Abwehr pflegerischer und anderer unterstützender Maßnahmen","Abwehr notwendiger Unterstützung; nicht die selbstbestimmte Ablehnung bei erhaltener Entscheidungsfähigkeit."],
+  ["Wahnvorstellungen","Wiederkehrende, krankheitsbedingte Fehlüberzeugungen mit Unterstützungsbedarf."],
+  ["Ängste","Ausgeprägte wiederkehrende Ängste, die personelle Unterstützung zur Bewältigung erfordern."],
+  ["Antriebslosigkeit bei depressiver Stimmungslage","Sehr ausgeprägte Antriebslosigkeit mit notwendiger aufwendiger Motivation."],
+  ["Sozial inadäquate Verhaltensweisen","Zum Beispiel ausgeprägte Distanzlosigkeit oder unangemessenes Verhalten."],
+  ["Sonstige pflegerelevante inadäquate Handlungen","Andere wiederkehrende Handlungen mit personellem Unterstützungsbedarf."]
+ ]},
+ {id:4,name:"Selbstversorgung",desc:"Bewertet wird die praktische Durchführung. Essen wird dreifach, Trinken und Toilettenbenutzung doppelt gewichtet.",weight:40,opts:simpleOpts,qs:[
+  ["Waschen des vorderen Oberkörpers","Hände, Gesicht, Arme, Achselhöhlen sowie vorderer Hals- und Brustbereich."],
+  ["Körperpflege im Bereich des Kopfes","Kämmen, Zahnpflege bzw. Prothesenreinigung und Rasieren."],
+  ["Waschen des Intimbereichs","Intimbereich waschen und abtrocknen."],
+  ["Duschen und Baden einschließlich Haarewaschen","Einschließlich Ein-/Aussteigen, Sicherheit, Abtrocknen, Haarewaschen und Föhnen."],
+  ["An- und Auskleiden des Oberkörpers","Bereitliegende Kleidung des Oberkörpers an- und ausziehen."],
+  ["An- und Auskleiden des Unterkörpers","Bereitliegende Kleidung, Strümpfe und Schuhe an- und ausziehen."],
+  ["Mundgerechtes Zubereiten und Eingießen","Speisen mundgerecht zerteilen und Getränke eingießen."],
+  ["Essen","Bereitgestellte, mundgerecht zubereitete Speisen aufnehmen und essen."],
+  ["Trinken","Bereitstehende Getränke aufnehmen."],
+  ["Benutzen einer Toilette oder eines Toilettenstuhls","Toilettengang einschließlich Hinsetzen/Aufstehen, Intimhygiene und Kleidung."],
+  ["Folgen einer Harninkontinenz / Dauerkatheter / Urostoma","Inkontinenz- oder Ableitungssysteme sachgerecht handhaben."],
+  ["Folgen einer Stuhlinkontinenz / Stoma","Inkontinenz- oder Stomasysteme sachgerecht handhaben."]
+ ]},
+ {id:6,name:"Gestaltung des Alltagslebens und sozialer Kontakte",desc:"Bewertet wird, wie selbständig die Person ihren Alltag gestalten, sich beschäftigen, planen und soziale Kontakte pflegen kann.",weight:15,opts:simpleOpts,qs:[
+  ["Gestaltung des Tagesablaufs und Anpassung an Veränderungen","Kann die Person ihren Tagesablauf nach eigenen Gewohnheiten planen und an Veränderungen anpassen?"],
+  ["Ruhen und Schlafen","Kann sie einen Tag-Nacht-Rhythmus einhalten und für ausreichende Ruhe- und Schlafphasen sorgen?"],
+  ["Sichbeschäftigen","Kann die Person freie Zeit entsprechend eigener Interessen sinnvoll nutzen?"],
+  ["Vornehmen von in die Zukunft gerichteten Planungen","Kann sie über den aktuellen Tag hinaus planen?"],
+  ["Interaktion mit Personen im direkten Kontakt","Kann sie mit Angehörigen, Pflegepersonen, Mitbewohnern oder Besuchern umgehen und reagieren?"],
+  ["Kontaktpflege zu Personen außerhalb des direkten Umfelds","Kann sie Kontakte zu Freunden, Bekannten oder Nachbarn aufrechterhalten oder gestalten?"]
+ ]}
+];
+
+let state={};
+let sequence=[];
+let pos=0;
+
+function buildSequence(){
+ sequence=[];
+ modules.forEach(m=>m.qs.forEach((q,i)=>sequence.push({type:"q",m:m.id,i})));
+ sequence.push({type:"special"});
+ sequence.push({type:"m4extra"});
+ sequence.push({type:"m5"});
+}
+function startApp(){
+ buildSequence();
+ document.getElementById("intro").classList.add("hidden");
+ document.getElementById("app").classList.remove("hidden");
+ pos=0; render();
+}
+function key(m,i){return `m${m}_${i}`}
+function currentModule(id){return modules.find(m=>m.id===id)}
+function render(){
+ const item=sequence[pos];
+ const pct=Math.round((pos+1)/sequence.length*100);
+ document.getElementById("progressBar").style.width=pct+"%";
+ document.getElementById("countLabel").textContent=(pos+1)+" / "+sequence.length;
+ if(item.type==="q") renderQuestion(item);
+ if(item.type==="special") renderSpecial();
+ if(item.type==="m4extra") renderM4Extra();
+ if(item.type==="m5") renderM5();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function renderQuestion(item){
+ const m=currentModule(item.m), q=m.qs[item.i], k=key(item.m,item.i);
+ document.getElementById("moduleLabel").textContent="Modul "+m.id+" · "+m.name;
+ let opts=m.opts;
+ let html=`<p class="eyebrow">MODUL ${m.id}</p><h2>${m.name}</h2><div class="module-desc">${m.desc}</div>
+ <div class="question"><div class="question-title">${q[0]}</div><div class="question-sub">${q[1]}</div>
+ <div class="options">`;
+ opts.forEach(o=>{
+   let s=state[k]===o.v?" selected":"";
+   html+=`<div class="option${s}" onclick="choose('${k}',${o.v})"><div class="radio"></div><div><strong>${o.label}</strong><span>${o.desc}</span></div></div>`;
+ });
+ html+=`</div><button class="helpbtn" onclick="toggleHelp()">ⓘ Bewertungs-Hinweis</button>
+ <div class="helpbox hidden" id="helpbox">Wähle die Ausprägung nach der Situation im üblichen Wochenverlauf. Eine Person gilt auch dann als selbständig, wenn sie ein Hilfsmittel benutzt, aber keine personelle Hilfe benötigt.</div></div>${actionsHtml()}`;
+ document.getElementById("questionCard").innerHTML=html;
+}
+function choose(k,v){state[k]=v;render()}
+function toggleHelp(){let x=document.getElementById("helpbox"); if(x)x.classList.toggle("hidden")}
+function actionsHtml(){
+ return `<div class="actions"><button class="secondary" onclick="back()">Zurück</button><button class="primary" onclick="next()">Weiter</button></div>`;
+}
+function next(){
+ const item=sequence[pos];
+ if(item.type==="q" && state[key(item.m,item.i)]===undefined){alert("Bitte zuerst eine Antwort auswählen.");return}
+ if(pos<sequence.length-1){pos++;render()}else calculate();
+}
+function back(){
+ if(pos===0){document.getElementById("app").classList.add("hidden");document.getElementById("intro").classList.remove("hidden");}
+ else{pos--;render()}
+}
+function renderSpecial(){
+ document.getElementById("moduleLabel").textContent="Besondere Bedarfskonstellation";
+ document.getElementById("questionCard").innerHTML=`
+ <p class="eyebrow">SONDERREGEL</p><h2>Gebrauchsunfähigkeit beider Arme und beider Beine</h2>
+ <p class="lead">Liegt eine Gebrauchsunfähigkeit beider Arme und beider Beine mit vollständigem Verlust der Greif-, Steh- und Gehfunktionen vor?</p>
+ <label class="checkrow"><input type="checkbox" ${state.special?"checked":""} onchange="state.special=this.checked"><span><strong>Ja, besondere Bedarfskonstellation liegt vor.</strong><br><span class="small">Diese Konstellation kann unabhängig von der Gesamtpunktzahl zu Pflegegrad 5 führen.</span></span></label>
+ ${actionsHtml()}`;
+}
+function renderM4Extra(){
+ document.getElementById("moduleLabel").textContent="Modul 4 · Ergänzungen";
+ let u=state.m4urine||"none", s=state.m4stool||"none", tube=state.m4tube||"none";
+ document.getElementById("questionCard").innerHTML=`
+ <p class="eyebrow">MODUL 4 · ERGÄNZUNGEN</p><h2>Kontinenz und künstliche Ernährung</h2>
+ <p class="lead">Diese Angaben steuern Sonderregeln der Berechnung in Modul 4.</p>
+ <h3>Harnkontinenz / Harnableitung</h3>
+ <select onchange="state.m4urine=this.value" style="width:100%;padding:13px;border:1px solid var(--line);border-radius:8px;font:inherit">
+  <option value="none" ${u==="none"?"selected":""}>ständig / überwiegend kontinent, keine künstliche Ableitung</option>
+  <option value="relevant" ${u==="relevant"?"selected":""}>überwiegend / komplett inkontinent oder künstliche Harnableitung</option>
+ </select>
+ <br><br><h3>Stuhlkontinenz / Stoma</h3>
+ <select onchange="state.m4stool=this.value" style="width:100%;padding:13px;border:1px solid var(--line);border-radius:8px;font:inherit">
+  <option value="none" ${s==="none"?"selected":""}>ständig / überwiegend kontinent, kein Stoma</option>
+  <option value="relevant" ${s==="relevant"?"selected":""}>überwiegend / komplett inkontinent oder künstliche Stuhlableitung</option>
+ </select>
+ <br><br><h3>Ernährung parenteral oder über Sonde</h3>
+ <select onchange="state.m4tube=this.value" style="width:100%;padding:13px;border:1px solid var(--line);border-radius:8px;font:inherit">
+  <option value="none" ${tube==="none"?"selected":""}>keine / nicht täglich / nicht auf Dauer oder selbständig durchgeführt</option>
+  <option value="daily" ${tube==="daily"?"selected":""}>täglich zusätzlich zur oralen Ernährung – mit personeller Hilfe</option>
+  <option value="exclusive" ${tube==="exclusive"?"selected":""}>ausschließlich oder nahezu ausschließlich – mit personeller Hilfe</option>
+ </select>
+ ${actionsHtml()}`;
+}
+const m5names=[
+ "Medikation","Injektionen","Versorgung intravenöser Zugänge","Absaugen und Sauerstoffgabe","Einreibungen / Kälte- und Wärmeanwendungen","Messung und Deutung von Körperzuständen","Körpernahe Hilfsmittel",
+ "Verbandswechsel und Wundversorgung","Versorgung mit Stoma","Regelmäßige Einmalkatheterisierung / Abführmethoden","Therapiemaßnahmen in häuslicher Umgebung",
+ "Zeit- und technikintensive Maßnahmen in häuslicher Umgebung","Arztbesuche","Besuche medizinischer / therapeutischer Einrichtungen bis 3 Stunden","Zeitlich ausgedehnte Besuche über 3 Stunden"
+];
+function val(i,u){return (state.m5&&state.m5[i]&&state.m5[i][u])||0}
+function renderM5(){
+ document.getElementById("moduleLabel").textContent="Modul 5 · Therapiebedingte Anforderungen";
+ let rows="";
+ m5names.forEach((n,i)=>{
+   rows+=`<div class="freq-name">${i+1}. ${n}</div>
+   <input type="number" min="0" step="1" value="${val(i,'d')}" onchange="setM5(${i},'d',this.value)">
+   <input type="number" min="0" step="1" value="${val(i,'w')}" onchange="setM5(${i},'w',this.value)">
+   <input type="number" min="0" step="1" value="${val(i,'m')}" onchange="setM5(${i},'m',this.value)">`;
+ });
+ let d=state.m5diet===undefined?0:state.m5diet;
+ document.getElementById("questionCard").innerHTML=`
+ <p class="eyebrow">MODUL 5</p><h2>Krankheits- oder therapiebedingte Anforderungen</h2>
+ <p class="lead">Trage nur Maßnahmen ein, bei denen <strong>personelle Hilfe</strong> erforderlich ist und die ärztlich angeordnet sowie voraussichtlich mindestens sechs Monate notwendig sind.</p>
+ <div class="module-desc">Je Kriterium bitte die durchschnittliche Häufigkeit in <strong>nur einer</strong> passenden Zeiteinheit eintragen. 0 bedeutet: entfällt oder selbständig.</div>
+ <div class="freq-grid"><div></div><div class="head">pro Tag</div><div class="head">pro Woche</div><div class="head">pro Monat</div>${rows}</div>
+ <h3>16. Einhalten einer Diät / therapiebedingter Verhaltensvorschriften</h3>
+ <div class="options">
+ ${simpleOpts.map(o=>`<div class="option${d===o.v?" selected":""}" onclick="state.m5diet=${o.v};render()"><div class="radio"></div><div><strong>${o.label}</strong></div></div>`).join("")}
+ </div>
+ ${actionsHtml()}`;
+}
+function setM5(i,u,v){
+ if(!state.m5)state.m5={};
+ if(!state.m5[i])state.m5[i]={d:0,w:0,m:0};
+ state.m5[i][u]=Math.max(0,Number(v)||0);
+}
+function sumModule(m){
+ return m.qs.reduce((a,q,i)=>a+(Number(state[key(m.id,i)])||0),0);
+}
+function band(sum,ranges,weights){
+ for(let i=0;i<ranges.length;i++) if(sum>=ranges[i][0] && sum<=ranges[i][1]) return weights[i];
+ return 0;
+}
+function calcM4(){
+ const m=currentModule(4);
+ const vals=m.qs.map((q,i)=>Number(state[key(4,i)])||0);
+ const mult=[1,1,1,1,1,1,1,3,2,2,1,1];
+ let s=vals.reduce((a,v,i)=>a+v*mult[i],0);
+ if(state.m4urine!=="relevant") s-=vals[10];
+ if(state.m4stool!=="relevant") s-=vals[11];
+ if(state.m4tube==="daily")s+=6;
+ if(state.m4tube==="exclusive")s+=3;
+ return Math.max(0,s);
+}
+function round4(x){return Math.round((x+Number.EPSILON)*10000)/10000}
+function m5daily(indices){
+ let total=0;
+ indices.forEach(i=>{
+   let x=(state.m5&&state.m5[i])||{d:0,w:0,m:0};
+   total += Number(x.d||0) + Number(x.w||0)/7 + Number(x.m||0)/30;
+ });
+ return round4(total);
+}
+function calcM5(){
+ const a=m5daily([0,1,2,3,4,5,6]);
+ let p1=a<1?0:a<=3?1:a<=8?2:3;
+ const b=m5daily([7,8,9,10]);
+ let p2=b<(1/7)?0:b<1?1:b<3?2:3;
+ let raw=0;
+ [11,12,13,14].forEach(i=>{
+   let x=(state.m5&&state.m5[i])||{d:0,w:0,m:0};
+   if(i===11){raw += Number(x.d||0)*60 + Number(x.w||0)*8.6 + Number(x.m||0)*2;}
+   else if(i===14){raw += Number(x.w||0)*8.6 + Number(x.m||0)*2;}
+   else {raw += Number(x.w||0)*4.3 + Number(x.m||0);}
+ });
+ let p3=raw<4.3?0:raw<8.6?1:raw<12.9?2:raw<60?3:6;
+ let p4=Number(state.m5diet||0);
+ return {sum:p1+p2+p3+p4,details:{a,p1,b,p2,raw:round4(raw),p3,p4}};
+}
+function weighted(){
+ let s1=sumModule(currentModule(1));
+ let w1=band(s1,[[0,1],[2,3],[4,5],[6,9],[10,15]],[0,2.5,5,7.5,10]);
+ let s2=sumModule(currentModule(2));
+ let w2=band(s2,[[0,1],[2,5],[6,10],[11,16],[17,33]],[0,3.75,7.5,11.25,15]);
+ let s3=sumModule(currentModule(3));
+ let w3=band(s3,[[0,0],[1,2],[3,4],[5,6],[7,65]],[0,3.75,7.5,11.25,15]);
+ let s4=calcM4();
+ let w4=band(s4,[[0,2],[3,7],[8,18],[19,36],[37,65]],[0,10,20,30,40]);
+ let m5=calcM5(), s5=m5.sum;
+ let w5=band(s5,[[0,0],[1,1],[2,3],[4,5],[6,15]],[0,5,10,15,20]);
+ let s6=sumModule(currentModule(6));
+ let w6=band(s6,[[0,0],[1,3],[4,6],[7,11],[12,18]],[0,3.75,7.5,11.25,15]);
+ return {s1,w1,s2,w2,s3,w3,s4,w4,s5,w5,s6,w6,m5,total:w1+Math.max(w2,w3)+w4+w5+w6};
+}
+function calculate(){
+ const r=weighted();
+ let pg=0;
+ if(state.special)pg=5;
+ else if(r.total>=90)pg=5;
+ else if(r.total>=70)pg=4;
+ else if(r.total>=47.5)pg=3;
+ else if(r.total>=27)pg=2;
+ else if(r.total>=12.5)pg=1;
+ document.getElementById("app").classList.add("hidden");
+ let res=document.getElementById("result");res.classList.remove("hidden");
+ const label=pg===0?"Kein Pflegegrad nach Punktwert":"Pflegegrad "+pg;
+ const rows=[
+  ["Modul 1 · Mobilität",r.w1,10,`Summenwert ${r.s1}`],
+  ["Modul 2 · Kognition",r.w2,15,`Summenwert ${r.s2}`],
+  ["Modul 3 · Verhalten",r.w3,15,`Summenwert ${r.s3}`],
+  ["Modul 4 · Selbstversorgung",r.w4,40,`Summenwert ${r.s4}`],
+  ["Modul 5 · Therapieanforderungen",r.w5,20,`Summenwert ${r.s5}`],
+  ["Modul 6 · Alltagsleben",r.w6,15,`Summenwert ${r.s6}`]
+ ];
+ res.innerHTML=`<p class="eyebrow">ERGEBNIS</p><div class="result-hero"><h1>Unverbindliche Einschätzung</h1><div class="pg">${label}</div><div class="points">${r.total.toFixed(2).replace(".",",")} gewichtete Punkte</div></div>
+ <div class="notice"><strong>Wichtig:</strong> Bei Modul 2 und 3 fließt nur der höhere gewichtete Wert in die Gesamtpunktzahl ein. ${state.special?"Die besondere Bedarfskonstellation wurde markiert; dadurch ergibt sich Pflegegrad 5.":""}</div>
+ <div class="result-grid">${rows.map((x,i)=>`<div class="resrow"><div class="reshead"><span>${x[0]}${(i===1||i===2)?" *":""}</span><strong>${x[1].toString().replace(".",",")} / ${x[2]} Punkte</strong></div><div class="track"><div class="fill" style="width:${Math.min(100,x[1]/x[2]*100)}%"></div></div><div class="small" style="margin-top:6px">${x[3]}</div></div>`).join("")}</div>
+ <p class="small">* Aus Modul 2 und 3 wird für die Gesamtberechnung nur der höhere gewichtete Wert verwendet.</p>
+ <details><summary>Berechnung Modul 5 anzeigen</summary><p class="small">Zwischengruppe 4.5.1–4.5.7: ${r.m5.details.a} Maßnahmen/Tag → ${r.m5.details.p1} Punkt(e).<br>Zwischengruppe 4.5.8–4.5.11: ${r.m5.details.b} Maßnahmen/Tag → ${r.m5.details.p2} Punkt(e).<br>Zwischengruppe 4.5.12–4.5.15: ${r.m5.details.raw} Rohpunkte → ${r.m5.details.p3} Punkt(e).<br>Diät/Verhaltensvorschriften: ${r.m5.details.p4} Punkt(e).</p></details>
+ <div class="notice">Dieses Ergebnis ist eine Orientierung aus den eingegebenen Angaben. Eine verbindliche Feststellung des Pflegegrades erfolgt durch die zuständige Pflegekasse auf Grundlage des Begutachtungsverfahrens.</div>
+ <div class="actions"><button class="secondary" onclick="restart()">Neu starten</button><button class="primary" onclick="window.print()">Ergebnis drucken</button></div>`;
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){
+ state={};sequence=[];pos=0;
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("intro").classList.remove("hidden");
+}
+</script>
+</body>
+</html>
